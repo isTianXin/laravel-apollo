@@ -1,0 +1,47 @@
+{
+  "name": "istianxin/laravel-apollo",
+  "description": "Laravel Apollo Agent",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tian Xin",
+      "email": "upc_tianxin@foxmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^7.0",
+    "multilinguals/apollo-client": "^v0.1.2",
+    "laravel/framework": "^6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5",
+    "squizlabs/php_codesniffer": "^3.5",
+    "ext-xdebug": "*",
+    "orchestra/testbench": "v4.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "IsTianXin\\Apollo\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "IsTianXin\\Apollo\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@php -r \"file_exists('.git') && copy('.git-pre-commit', '.git/hooks/pre-commit') && chmod('.git/hooks/pre-commit', 0755);\""
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "IsTianXin\\Apollo\\ApolloServiceProvider"
+      ]
+    }
+  }
+}
