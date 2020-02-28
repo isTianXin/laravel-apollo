@@ -18,7 +18,7 @@ class ApolloService
         $client = new ApolloClient(
             config('apollo.config_server'),
             config('apollo.app_id'),
-            Arr::wrap(config('apollo.namespaces'))
+            Helper::arrayWrap(config('apollo.namespaces'))
         );
         $client->save_dir = config('apollo.save_dir');
 
@@ -59,9 +59,10 @@ class ApolloService
     public function getConfig($namespace = 'application', $key = null, $default = null)
     {
         if ($key === null) {
-            return ApolloConfig::connect($namespace);
+            return ApolloConfig::get($namespace);
         }
-        return Arr::get(Arr::wrap(ApolloConfig::connect($namespace)), $key, $default);
+
+        return Arr::get(Helper::arrayWrap(ApolloConfig::get($namespace)), $key, $default);
     }
 
     /**

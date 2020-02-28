@@ -9,6 +9,6 @@ return [
     'pull_timeout' => env('APOLLO_PULL_TIMEOUT'),
     'interval_timeout' => env('APOLLO_INTERVAL_TIMEOUT'),
     'save_dir' => realpath(storage_path('apollo')),
-    'cache_store' => env('APOLLO_CACHE_STORE'),
+    'cache_store' => env('APOLLO_CACHE_STORE', 'redis'),
     'cache_key_prefix' => env('APOLLO_CACHE_KEY_PREFIX', 'apollo_config'),
 ];
