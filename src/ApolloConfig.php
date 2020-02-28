@@ -24,7 +24,7 @@ class ApolloConfig
             $config = include $file;
             if (is_array($config) && isset($config['configurations'])) {
                 $namespace = $config['namespaceName'] ?: self::parseNamespaceFromFileName($file);
-                Cache::store(config('apollo.cache_store') ?: null)
+                Cache::store(self::getCacheStore())
                     ->forever(self::getCacheKey($namespace), $config['configurations']);
             }
         }
@@ -37,18 +37,18 @@ class ApolloConfig
      * @param $namespace
      * @return mixed
      */
-    public static function connect($namespace)
+    public static function get($namespace)
     {
-        return Cache::get(self::getCacheKey($namespace));
+        return Cache::store(self::getCacheStore())->get(self::getCacheKey($namespace));
     }
 
     /**
      * @param $file_name
      * @return mixed|string
      */
-    public static function parseNamespaceFromFileName($file_name)
+    protected static function parseNamespaceFromFileName($file_name)
     {
-        if (preg_match('/apolloConfig.(\w+).php$/', $file_name, $matches)) {
+        if (preg_match('/apolloConfig.(\S+?).php$/', $file_name, $matches)) {
             return $matches[1];
         }
         return '';
@@ -58,8 +58,16 @@ class ApolloConfig
      * @param $namespace
      * @return string
      */
-    public static function getCacheKey($namespace): string
+    protected static function getCacheKey($namespace): string
     {
         return config('apollo.cache_key_prefix') . $namespace;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected static function getCacheStore()
+    {
+        return config('apollo.cache_store') ?: 'redis';
     }
 }
