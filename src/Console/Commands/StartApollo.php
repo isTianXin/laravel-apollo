@@ -13,7 +13,7 @@ class StartApollo extends Command
      *
      * @var string
      */
-    protected $signature = 'apollo:start';
+    protected $signature = 'apollo:start {--restart=false restart when error occurred}';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class StartApollo extends Command
 
         //start
         $this->line('PID: [' . getmypid() . '] start');
-        $restart = true;
+        $restart = $this->option('restart');
         do {
             try {
                 $error = $apollo->getClient()->start($apollo->listener());
