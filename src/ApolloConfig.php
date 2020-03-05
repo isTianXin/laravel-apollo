@@ -43,6 +43,16 @@ class ApolloConfig
     }
 
     /**
+     * forget namespace cache
+     * @param $namespace
+     * @return bool
+     */
+    public static function forget($namespace)
+    {
+        return Cache::store(self::getCacheStore())->forget(self::getCacheKey($namespace));
+    }
+
+    /**
      * @param $file_name
      * @return mixed|string
      */
