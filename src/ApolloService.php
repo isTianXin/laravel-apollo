@@ -74,6 +74,16 @@ class ApolloService
     }
 
     /**
+     * forget cached config
+     * @param $namespace
+     * @return bool
+     */
+    public function forgetCachedConfig($namespace)
+    {
+        return ApolloConfig::forget($namespace);
+    }
+
+    /**
      * change listener
      * @return \Closure
      */
